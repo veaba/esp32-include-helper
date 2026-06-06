@@ -1,0 +1,125 @@
+{
+  "name": "esp-idf-include-assistant",
+  "version": "0.1.0",
+  "displayName": "ESP-IDF Include Helper",
+  "description": "Smart detection of undefined symbols and quick-add corresponding header files for ESP-IDF development",
+  "publisher": "veaba",
+  "author": "veaba",
+  "license": "MIT",
+  "homepage": "https://github.com/veaba/vscode-esp32-include",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/veaba/vscode-esp32-include"
+  },
+  "bugs": {
+    "url": "https://github.com/veaba/vscode-esp32-include/issues"
+  },
+  "categories": [
+    "Programming Languages",
+    "Other"
+  ],
+  "main": "./dist/index.js",
+  "icon": "icons/icon.png",
+  "files": [
+    "LICENSE.md",
+    "dist/*",
+    "icons/*",
+    "scripts/*",
+    "static/*"
+  ],
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch --sourcemap",
+    "prepare": "nr update",
+    "update": "vscode-ext-gen --output src/generated/meta.ts",
+    "lint": "eslint .",
+    "vscode:prepublish": "nr build",
+    "publish": "vsce publish --no-dependencies",
+    "pack": "vsce package --no-dependencies",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit",
+    "release": "bumpp && nr publish"
+  },
+  "activationEvents": [
+    "onLanguage:c",
+    "onLanguage:cpp",
+    "workspaceContains:**/CMakeLists.txt"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "esp-idf-include-assistant.rebuildCache",
+        "title": "ESP-IDF: 重建符号缓存"
+      },
+      {
+        "command": "esp-idf-include-assistant.showCacheStatus",
+        "title": "ESP-IDF: 查看缓存状态"
+      }
+    ],
+    "configuration": {
+      "title": "ESP-IDF Include Helper",
+      "properties": {
+        "espIdfIncludeAssistant.idfPath": {
+          "type": "string",
+          "default": "",
+          "description": "ESP-IDF installation path"
+        },
+        "espIdfIncludeAssistant.chipTarget": {
+          "type": "string",
+          "enum": [
+            "esp32",
+            "esp32s3",
+            "esp32c3",
+            "esp32c6",
+            "esp32h2"
+          ],
+          "default": "esp32",
+          "description": "Target chip type"
+        },
+        "espIdfIncludeAssistant.idfVersion": {
+          "type": "string",
+          "default": "v5.5.4",
+          "description": "ESP-IDF version"
+        },
+        "espIdfIncludeAssistant.enableQuickFix": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable quick fix feature"
+        },
+        "espIdfIncludeAssistant.autoDetectChip": {
+          "type": "boolean",
+          "default": true,
+          "description": "Auto detect chip type from project configuration"
+        }
+      }
+    }
+  },
+  "extensionDependencies": [
+    "llvm-vs-code-extensions.vscode-clangd"
+  ],
+  "dependencies": {
+    "sql.js": "^1.14.1",
+    "vscode-languageclient": "^9.0.1"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^4.2.1",
+    "@antfu/ni": "^23.3.1",
+    "@types/node": "^22.13.4",
+    "@types/sql.js": "^1.4.11",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^3.2.2",
+    "bumpp": "^10.0.3",
+    "eslint": "^9.20.1",
+    "esno": "^4.8.0",
+    "pnpm": "^10.4.1",
+    "reactive-vscode": "^0.2.10",
+    "tsdown": "0.13.3",
+    "typescript": "^5.7.3",
+    "vite": "^6.1.0",
+    "vitest": "^3.0.5",
+    "vscode-ext-gen": "^1.0.0"
+  }
+}
