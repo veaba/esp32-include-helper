@@ -21,8 +21,8 @@ export interface CacheStatus {
 export class SymbolCache {
   private db: SymbolDatabase
 
-  constructor(storagePath: string, wasmPath?: string) {
-    this.db = new SymbolDatabase(storagePath, wasmPath)
+  constructor(storagePath: string, wasmPath?: string, extensionPath?: string) {
+    this.db = new SymbolDatabase(storagePath, wasmPath, extensionPath)
   }
 
   async initialize(): Promise<void> {

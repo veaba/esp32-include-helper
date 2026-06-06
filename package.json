@@ -1,6 +1,6 @@
 {
-  "name": "esp-idf-include-assistant",
-  "version": "0.1.0",
+  "name": "esp-idf-include-helper",
+  "version": "0.1.3",
   "displayName": "ESP-IDF Include Helper",
   "description": "Smart detection of undefined symbols and quick-add corresponding header files for ESP-IDF development",
   "publisher": "veaba",
@@ -37,7 +37,7 @@
     "update": "vscode-ext-gen --output src/generated/meta.ts",
     "lint": "eslint .",
     "vscode:prepublish": "nr build",
-    "publish": "vsce publish --no-dependencies",
+    "publish": "vsce publish",
     "pack": "vsce package --no-dependencies",
     "test": "vitest",
     "typecheck": "tsc --noEmit",

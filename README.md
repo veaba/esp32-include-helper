@@ -2,6 +2,8 @@
 
 Smart detection of undefined symbols in C/C++ code and quick-add of corresponding ESP-IDF header files via VSCode Quick Fix.
 
+![snapshot](snapshot.png)
+
 ## Features
 
 - **Quick Fix (Lightbulb 💡)** — When clangd detects an undefined symbol like `esp_chip_info_t`, a lightbulb appears offering `Add #include "esp_chip_info.h"`

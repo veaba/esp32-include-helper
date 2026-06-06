@@ -9,17 +9,25 @@ export class SymbolDatabase {
   db: SqlJsDatabase | null = null
   private dbPath: string
   private wasmPath: string | undefined
+  private builtinDbPath: string | undefined
   private initialized = false
 
-  constructor(storagePath: string, wasmPath?: string) {
+  constructor(storagePath: string, wasmPath?: string, extensionPath?: string) {
     if (!fs.existsSync(storagePath)) {
       fs.mkdirSync(storagePath, { recursive: true })
     }
     this.dbPath = path.join(storagePath, DB_NAME)
     this.wasmPath = wasmPath
+    if (extensionPath) {
+      this.builtinDbPath = path.join(extensionPath, 'static', DB_NAME)
+    }
   }
 
   async initialize(): Promise<void> {
+    if (!fs.existsSync(this.dbPath) && this.builtinDbPath && fs.existsSync(this.builtinDbPath)) {
+      fs.copyFileSync(this.builtinDbPath, this.dbPath)
+    }
+
     const initConfig: any = {}
     if (this.wasmPath) {
       const wasmBinary = fs.readFileSync(this.wasmPath)

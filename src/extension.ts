@@ -43,7 +43,7 @@ export const { activate, deactivate } = defineExtension(async (ctx: ExtensionCon
   // ── 2. Initialize cache ──
   const wasmPath = path.join(ctx.extensionPath, "static", "sql-wasm.wasm");
   logger.info(`Loading WASM from: ${wasmPath}, exists: ${fs.existsSync(wasmPath)}`);
-  const cache = new SymbolCache(ctx.globalStoragePath, wasmPath);
+  const cache = new SymbolCache(ctx.globalStoragePath, wasmPath, ctx.extensionPath);
   await cache.initialize();
 
   const initialStatus = cache.getStatus();
